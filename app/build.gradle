@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def apiDev = '"https://jsonplaceholder.typicode.com/"'
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -13,6 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "API_URL", apiDev
     }
     buildTypes {
         release {

@@ -1,6 +1,7 @@
 package com.salvaperez.postbox.data.server
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.salvaperez.postbox.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,7 +15,7 @@ object PostBoxDb {
     }
 
     val service: PostBoxDbService = Retrofit.Builder()
-        .baseUrl("https://jsonplaceholder.typicode.com/")
+        .baseUrl(BuildConfig.API_URL)
         .client(okHttpClient)
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
