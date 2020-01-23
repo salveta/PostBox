@@ -5,6 +5,8 @@ import com.salvaperez.domain.Post
 import com.salvaperez.domain.User
 import com.salvaperez.domain.PostData
 import com.salvaperez.postbox.ui.common.Scope
+import com.salvaperez.postbox.ui.view_model.PostDataViewModel
+import com.salvaperez.postbox.ui.view_model.toViewModel
 import com.salvaperez.usecases.GetComments
 import com.salvaperez.usecases.GetPosts
 import com.salvaperez.usecases.GetUsers
@@ -17,7 +19,6 @@ class PostPresenter(private var view: PostView? = null, private val getUsers: Ge
         initScope()
 
         async {
-            view?.showLoading()
             val post = getPosts()
             val users = getUsers()
             val comments = getComments()
@@ -28,13 +29,15 @@ class PostPresenter(private var view: PostView? = null, private val getUsers: Ge
     }
 
     fun onInit(){
+        view?.showLoading()
         view?.initViews()
     }
 
     private fun updateData(users: List<User>, post: List<Post>, comments: List<Comment>){
 
         if(post.isNotEmpty()){
-            view?.showData(createPostData(users, post, comments))
+            val postViewModel = createPostData(users, post, comments)
+            view?.showData(postViewModel.map { it.toViewModel() })
 
         }else{
             view?.showEmpty()
@@ -57,6 +60,10 @@ class PostPresenter(private var view: PostView? = null, private val getUsers: Ge
             )
             joinedPosts
         }.toList()
+    }
+
+    fun onPostclick(post: PostDataViewModel){
+        view?.openDetail(post)
     }
 
 

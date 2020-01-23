@@ -8,7 +8,9 @@ import com.salvaperez.data.source.RemotePostDataSource
 import com.salvaperez.data.source.RemoteUserDataSource
 import com.salvaperez.postbox.data.data_sources.PostDataSource
 import com.salvaperez.postbox.data.data_sources.UserDataSource
-import com.salvaperez.postbox.data.server.CommentDataSource
+import com.salvaperez.postbox.data.data_sources.CommentDataSource
+import com.salvaperez.postbox.ui.detail.DetailPresenter
+import com.salvaperez.postbox.ui.detail.DetailView
 import com.salvaperez.postbox.ui.home.PostPresenter
 import com.salvaperez.postbox.ui.home.PostView
 import com.salvaperez.usecases.GetComments
@@ -30,6 +32,7 @@ val dataModule = module {
 }
 
 val postsModule = module(override = true) {
+    factory { (view: DetailView) -> DetailPresenter(view) }
     factory { (view: PostView) -> PostPresenter(view, get(), get(), get()) }
     factory { GetPosts(get()) }
     factory { GetUsers(get()) }

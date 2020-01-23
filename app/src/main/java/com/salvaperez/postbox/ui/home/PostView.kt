@@ -1,6 +1,6 @@
 package com.salvaperez.postbox.ui.home
 
-import com.salvaperez.domain.PostData
+import com.salvaperez.postbox.ui.view_model.PostDataViewModel
 
 interface PostView {
 
@@ -12,5 +12,7 @@ interface PostView {
 
     fun showEmpty()
 
-    fun showData(post: List<PostData>)
+    fun showData(post: List<PostDataViewModel>)
+
+    fun openDetail(post: PostDataViewModel)
 }
