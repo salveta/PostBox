@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PostBox</string>
+    <string name="empty_text">Sorry, we don\'t have post at this moment</string>
+</resources>
