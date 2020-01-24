@@ -1,7 +1,9 @@
 package com.salvaperez.postbox
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import android.content.Context
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
+import com.salvaperez.postbox.di.postsModule
 import com.salvaperez.postbox.ui.home.PostPresenter
 import com.salvaperez.postbox.ui.home.PostView
 import com.salvaperez.postbox.utils.mochedUser
@@ -12,36 +14,35 @@ import com.salvaperez.usecases.GetComments
 import com.salvaperez.usecases.GetPosts
 import com.salvaperez.usecases.GetUsers
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.parameter.parametersOf
+import org.koin.test.KoinTest
+import org.koin.test.inject
+import org.koin.test.mock.declareMock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class PostPresenterTest {
+class PostPresenterTest: KoinTest {
 
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
-    @Mock
-    lateinit var getPosts: GetPosts
-
-    @Mock
-    lateinit var getUsers: GetUsers
-
-    @Mock
-    lateinit var getComments: GetComments
-
-    private lateinit var presenter: PostPresenter
-
-    @Mock
-    lateinit var view: PostView
+    private val context: Context = mock()
+    private val view: PostView = mock()
+    private val presenter: PostPresenter by inject { parametersOf(view) }
 
     @Before
     fun setUp() {
-        presenter = PostPresenter(view, getUsers, getPosts, getComments)
+        startKoin {
+            androidContext(context)
+            modules(postsModule)
+        }
+        declareMock<GetUsers>()
+        declareMock<GetPosts>()
+        declareMock<GetComments>()
     }
 
     @Test
@@ -85,5 +86,10 @@ class PostPresenterTest {
         presenter.onPostclick(postData)
 
         verify(view).openDetail(postData)
+    }
+
+    @After
+    fun after() {
+        stopKoin()
     }
 }
