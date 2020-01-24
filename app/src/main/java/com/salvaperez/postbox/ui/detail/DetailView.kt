@@ -4,5 +4,5 @@ import com.salvaperez.postbox.ui.view_model.PostDataViewModel
 
 interface DetailView {
 
-    fun initView(post: PostDataViewModel?)
+    fun initViews(post: PostDataViewModel?)
 }

@@ -2,9 +2,14 @@ package com.salvaperez.postbox.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.Nullable
+import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.espresso.IdlingResource
 import com.salvaperez.postbox.R
-import com.salvaperez.domain.PostData
+import com.salvaperez.postbox.idlingResources.SimpleIdlingResource
+import com.salvaperez.postbox.idlingResources.decrementIdlingResource
+import com.salvaperez.postbox.idlingResources.incrementIdlingResource
 import com.salvaperez.postbox.ui.detail.DetailActivity
 import com.salvaperez.postbox.ui.extensions.gone
 import com.salvaperez.postbox.ui.extensions.open
@@ -19,6 +24,9 @@ class PostActivity : AppCompatActivity(), PostView {
 
     private val presenter: PostPresenter by inject { parametersOf(this) }
     private var postAdapter: PostAdapter? = null
+
+    @Nullable
+    var mIdlingResource: SimpleIdlingResource = SimpleIdlingResource()
 
     override fun onDestroy() {
         presenter.onDestroy()
@@ -54,10 +62,12 @@ class PostActivity : AppCompatActivity(), PostView {
 
     override fun showLoading() {
         progressBar.visible()
+        incrementIdlingResource(mIdlingResource)
     }
 
     override fun hideLoading() {
         progressBar.gone()
+        decrementIdlingResource()
     }
 
     override fun showEmpty() {
@@ -66,5 +76,10 @@ class PostActivity : AppCompatActivity(), PostView {
 
     override fun showData(post: List<PostDataViewModel>) {
         postAdapter?.post = post
+    }
+
+    @VisibleForTesting
+    fun getIdlingResource(): IdlingResource {
+        return mIdlingResource
     }
 }

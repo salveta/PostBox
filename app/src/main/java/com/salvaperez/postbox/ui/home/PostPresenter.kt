@@ -33,7 +33,7 @@ class PostPresenter(private var view: PostView? = null, private val getUsers: Ge
         view?.initViews()
     }
 
-    private fun updateData(users: List<User>, post: List<Post>, comments: List<Comment>){
+    fun updateData(users: List<User>, post: List<Post>, comments: List<Comment>){
 
         if(post.isNotEmpty()){
             val postViewModel = createPostData(users, post, comments)

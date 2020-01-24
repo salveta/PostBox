@@ -24,7 +24,7 @@ class DetailActivity: AppCompatActivity(), DetailView{
         presenter.onInit(intent?.getParcelableExtra(DETAIL))
     }
 
-    override fun initView(post: PostDataViewModel?) {
+    override fun initViews(post: PostDataViewModel?) {
         txPostTitleDetail.text = post?.title?.capitalize()
         txUserName.text = post?.user?.name
         txCommentsNumber.text = post?.body?.length.toString()
