@@ -44,7 +44,9 @@ allprojects {
                 retrofitGsonConverter    : 'com.squareup.retrofit2:converter-gson:2.5.0',
                 retrofitCoroutinesAdapter: 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2',
                 idlingResource: 'androidx.test.espresso:espresso-idling-resource:3.2.0',
-                koin                     : "org.koin:koin-android-viewmodel:2.0.1"
+                koin                     : "org.koin:koin-android-viewmodel:2.0.1",
+                glide: 'com.github.bumptech.glide:glide:4.10.0'
+//        annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
         ]
 
         testLibs = [

@@ -3,10 +3,12 @@ package com.salvaperez.postbox.ui.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.salvaperez.postbox.R
+import com.salvaperez.postbox.ui.extensions.loadImage
 import com.salvaperez.postbox.ui.view_model.PostDataViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import kotlin.random.Random
 
 class DetailActivity: AppCompatActivity(), DetailView{
 
@@ -29,9 +31,13 @@ class DetailActivity: AppCompatActivity(), DetailView{
         txUserName.text = post?.user?.name
         txCommentsNumber.text = post?.body?.length.toString()
         txBody.text = post?.body
+
+        imPost.loadImage(IMAGE_URL + presenter.getRandomImage() + SIZE_IMAGE)
     }
 
     companion object{
         const val DETAIL = "DetailActivity"
+        const val IMAGE_URL = "https://i.picsum.photos/id/"
+        const val SIZE_IMAGE = "/800/800.jpg"
     }
 }
