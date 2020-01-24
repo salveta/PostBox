@@ -8,7 +8,6 @@ import com.salvaperez.postbox.ui.view_model.PostDataViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import kotlin.random.Random
 
 class DetailActivity: AppCompatActivity(), DetailView{
 
