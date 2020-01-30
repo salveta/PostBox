@@ -12,7 +12,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class GetPopularMoviesTest {
+class GetPostsTest {
 
     @Mock
     lateinit var postRepository: PostRepository
